@@ -1,4 +1,4 @@
-<?php
+T<?php
 $connection = new mysqli("localhost", "root", "", "dbms");
  
 // Check connection
@@ -16,24 +16,27 @@ if (isset($_POST['submit'])) {
     } 
 }
 
-else if (isset($_POST['login'])) 
+else if (isset($_REQUEST['login'])) 
 {
     $username   = $_POST['email1'];
     $password   = $_POST['password1'];
     $sql = "select * from useraccount where email = '$username' AND password = '$password'";
-
+    
     $resultSet  = mysqli_query($connection, $sql);
     if(mysqli_num_rows($resultSet) > 0)
     {
         $row = mysqli_fetch_assoc($resultSet);
         if($row['email'] == $username && $row['password'] == $password)
         {
-            $_SESSION["email1"]=$username;
-            $_SESSION["password1"]=$password;
+            $_SESSION["email"]=$username;
+            $_SESSION["password"]=$password;
+            
             header('Location:index.php');
         }
         
-    }  
+    } 
+    
+        
 
     
 }

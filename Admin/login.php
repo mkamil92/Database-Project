@@ -19,7 +19,7 @@ if($connection === false){
         $row = mysqli_fetch_assoc($resultSet);
         if($row['email'] == $username && $row['password'] == $password){ // if you are using encryption like md5 or anything else then you have to add in this line accordingly
             echo "Good, Logged In!";
-            header('Location:index.html');
+            header('Location:index.php');
         }else{
             echo "Oh No, password not correct!";
         }

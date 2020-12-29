@@ -6,6 +6,13 @@ if($connection === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 session_start();
+
+if(!isset($_SESSION['email']))
+{
+    header('Location:login.php');
+}
+// else
+// {
     $sql = "select * from mwclothes";
 
     $resultSet  = mysqli_query($connection, $sql);
@@ -23,6 +30,16 @@ session_start();
         $row1 = mysqli_fetch_assoc($resultSet1);
         
     }  
+    $_SESSION['values']=[];
+
+    if(isset($_POST["submitL"]))
+   {
+        session_unset();
+        session_destroy(); 
+        header('Location:login.php');
+    }
+    
+// }
 ?>
 
 
@@ -80,16 +97,16 @@ session_start();
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="index.php" class="nav-item nav-link active">Home</a>
                             <a href="product-list.html" class="nav-item nav-link">Products</a>
                             <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                            <a href="cart.html" class="nav-item nav-link">Cart</a>
+                            <a href="cart.php" class="nav-item nav-link">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                   <a href="login.html" class="dropdown-item">Login & Register</a>
+                                   <a href="login.php" class="dropdown-item">Login & Register</a>
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
@@ -97,9 +114,9 @@ session_start();
                         <div class="navbar-nav ml-auto">
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
-                                <div class="dropdown-menu">
-                                    <a href="login.html" class="dropdown-item">Log Out</a>
-                                </div>
+                                 <form action="" method="post">
+                                        <a href="login.php" class="dropdown-item">Log Out</a>
+                                    </form>
                             </div>
                         </div>
                     </div>
@@ -169,8 +186,9 @@ session_start();
                             <div class="header-slider-item">
                                 <img src="img/slider-1.jpg" alt="Slider Image" />
                                 <div class="header-slider-caption">
-                                    <p><?php echo $row['name'];?></p>
-                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                    <p><?php echo $row['name'];
+                                         ?></p>
+                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i><?php array_push($_SESSION['values'],$row['name']); ?>Add to Cart</a>
                                 </div>
                             </div>
                             <div class="header-slider-item"
@@ -181,9 +199,8 @@ session_start();
                                         }?>>
                                 <img src="img/slider-2.jpg" alt="Slider Image" />
                                 <div class="header-slider-caption">
-                                    <p><?php echo $val2;
-                                            $_SESSION['val2']= $val2; ?></p>
-                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                    <p><?php echo $val2;?></p>
+                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart <?php array_push($_SESSION['values'],$val2);?></a>
                                 </div>
                             </div>
                             <div class="header-slider-item">
@@ -194,9 +211,8 @@ session_start();
                                         {
                                              $val3 = $row['name'];
                                         }?>>
-                                    <p><?php echo $val3;
-                                            $_SESSION['val3']= $val3;  ?></p>
-                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                    <p><?php echo $val3;  ?></p>
+                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i><?php array_push($_SESSION['values'],$val3)  ?>Add to Cart</a>
                                 </div>
                             </div>
                         </div>
@@ -212,21 +228,19 @@ session_start();
                                              $val4 = $row['name'];
                                         }
                                         ?>>
-                                    <p><?php echo $val4;
-                                            $_SESSION['val4']= $val4;  ?></p>
+                                    <p><?php echo $val4; ?></p>
                                 </a>
                             </div>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i><?php array_push($_SESSION['values'],$val4); ?> Add to Cart</a>
                             <div class="img-item">
                                 <img src="img/category-2.jpg" />
                                 <a class="img-text" href="">
-                                    <p><?php echo $row1['name'];
-                                            $_SESSION['val']=$row1['name']; ?></p>
+                                    <p><?php echo $row1['name']; ?></p>
                                 </a>
                             </div>
 
                         </div>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i><?php array_push($_SESSION['values'],$row1['name']); ?>Add to Cart</a>
                     </div>
                 </div>
             </div>
@@ -295,6 +309,7 @@ session_start();
                 </div>
             </div>
         </div>
+
         <!-- Feature End-->      
         
         <!-- Category Start-->
@@ -311,12 +326,11 @@ session_start();
                                              $val5 = $row['name'];
                                         }
                                         ?>>
-                                <p><?php echo $val5;
-                                            $_SESSION['val5']= $val5;  ?></p>
+                                <p><?php echo $val5;  ?></p>
                             </a>
 
                         </div>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i><?php array_push($_SESSION['values'],$val5); ?>Add to Cart</a>
                     </div>
                     <div class="col-md-3">
                         <div class="category-item ch-250">
@@ -332,11 +346,10 @@ session_start();
                                              $val6 = $row2['name'];
                                         }
                                         ?>>
-                                <p><?php echo $val6;
-                                            $_SESSION['val6']= $val6;  ?></p>
+                                <p><?php echo $val6;  ?></p>
                             </a>
                         </div>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i><?php array_push($_SESSION['values'],$val6); ?>Add to Cart</a>
                         <div class="category-item ch-150">
                             <img src="img/category-5.jpg" />
                             <a class="category-name" href=""
@@ -350,11 +363,10 @@ session_start();
                                              $val8 = $row3['name'];
                                         }
                                         ?>>
-                                <p><?php echo $val8;
-                                            $_SESSION['val8']= $val8;  ?></p>
+                                <p><?php echo $val8;  ?></p>
                             </a>
                         </div>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i><?php  array_push($_SESSION['values'],$val8); ?>Add to Cart</a>
                     </div>
                     <div class="col-md-3">
                         <div class="category-item ch-150">
@@ -366,11 +378,10 @@ session_start();
                                              $val7 = $row2['name'];
                                         }
                                         ?>>
-                                <p><?php echo $val7;
-                                            $_SESSION['val7']= $val7;  ?></p>
+                                <p><?php echo $val7;  ?></p>
                             </a>
-                        </div>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                        </div>; ?>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"><?php array_push($_SESSION['values'],$val7); ?></i>Add to Cart</a>
                         <div class="category-item ch-250">
                             <img src="img/category-7.jpg" />
                             <a class="category-name" href=""
@@ -380,11 +391,10 @@ session_start();
                                              $val11 = $row3['name'];
                                         }
                                         ?>>
-                                <p><?php echo $val11;
-                                            $_SESSION['val11']= $val11;  ?></p>
+                                <p><?php echo $val11;  ?></p>
                             </a>
                         </div>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i><?php array_push($_SESSION['values'],$val11);?>Add to Cart</a>
                     </div>
                     <div class="col-md-3">
                         <div class="category-item ch-400">
@@ -396,15 +406,15 @@ session_start();
                                              $val6 = $row['name'];
                                         }
                                         ?>>
-                                <p><?php echo $val6;
-                                            $_SESSION['val6']= $val6;  ?></p>
+                                <p><?php echo $val6;  ?></p>
                             </a>
                         </div>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"><?php array_push($_SESSION['values'],$val6); ?></i>Add to Cart</a>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Category End-->       
         
         <!-- Call to Action Start -->

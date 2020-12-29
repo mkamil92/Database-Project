@@ -1,3 +1,21 @@
+<?php 
+    session_start();
+if(!isset($_SESSION['email']))
+{
+    header('Location:login.php');
+}
+else
+{   
+    if(isset($_REQUEST['submitL']))
+    
+    {
+        session_unset();
+        session_destroy(); 
+        header('Location:login.php');
+    }
+    
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -52,16 +70,16 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
+                            <a href="index.php" class="nav-item nav-link">Home</a>
                             <a href="product-list.html" class="nav-item nav-link">Products</a>
                             <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                            <a href="cart.html" class="nav-item nav-link active">Cart</a>
+                            <a href="cart.php" class="nav-item nav-link active">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                    <a href="login.html" class="dropdown-item">Login & Register</a>
+                                    <a href="login.php" class="dropdown-item">Login & Register</a>
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
@@ -70,7 +88,9 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
                                 <div class="dropdown-menu">
-                                    <a href="login.html" class="dropdown-item">Log Out</a>
+                                    <form action="" method="post">
+                                        <input type="submit" name="submitL" value="Log Out" href="login.php" class="dropdown-item" />
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -141,25 +161,27 @@
                                         </tr>
                                     </thead>
                                     <tbody class="align-middle">
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href="#"><img src="img/product-1.jpg" alt="Image"></a>
-                                                    <p>Product Name</p>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>$99</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                        
+                                        <?php foreach((array)$_SESSION['values'] as $values) : ?>
+                                          <tr>
+                                                    <td>
+                                                        <div class="img">
+                                                            <a href="#"><img src="img/product-1.jpg" alt="Image"></a>
+                                                            <p><?php echo $values; ?></p>
+                                                        </div>
+                                                    </td>
+                                                    <td>$99</td>
+                                                    <td>
+                                                        <div class="qty">
+                                                            <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                            <input type="text" value="1">
+                                                            <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>$99</td>
+                                                    <td><button><i class="fa fa-trash"></i></button></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+
                                     </tbody>
                                 </table>
                             </div>
