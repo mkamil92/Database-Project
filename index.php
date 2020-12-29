@@ -1,8 +1,36 @@
+<?php
+$connection = new mysqli("localhost", "root", "", "dbms");
+ 
+// Check connection
+if($connection === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+session_start();
+    $sql = "select * from mwclothes";
+
+    $resultSet  = mysqli_query($connection, $sql);
+    if(mysqli_num_rows($resultSet) > 0)
+    {
+        $row = mysqli_fetch_assoc($resultSet);
+        
+    }  
+
+     $sql1 = "select * from kbclothes";
+
+    $resultSet1  = mysqli_query($connection, $sql1);
+    if(mysqli_num_rows($resultSet1) > 0)
+    {
+        $row1 = mysqli_fetch_assoc($resultSet1);
+        
+    }  
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>E Store - eCommerce HTML Template</title>
+        <title>EStore</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="eCommerce HTML Template Free Download" name="keywords">
         <meta content="eCommerce HTML Template Free Download" name="description">
@@ -99,11 +127,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="user">
-                           
-                            <a href="cart.html" class="btn cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
-                            </a>
+                         
                         </div>
                     </div>
                 </div>
@@ -121,12 +145,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="index.html"><i class="fa fa-home"></i>Home</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="BestSelling.html"><i class="fa fa-shopping-bag"></i>Best Selling</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="NewArrivals.html"><i class="fa fa-plus-square"></i>New Arrivals</a>
-                                </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" href="FashionBeauty.html"><i class="fa fa-female"></i>Fashion & Beauty</a>
                                 </li>
@@ -144,58 +163,76 @@
                                 </li>
                             </ul>
                         </nav>
-
                     </div>
-                   <div class="col-md-6">
-                     <p class="PaymentPolicy"><span>Shipping Policy</span><br>
-                        Generic Shipping Policy template
-                        Shipping Policy
-                        Thank you for visiting and shopping at My Website (change this). Following are the terms and
-                        conditions that constitute our Shipping Policy.
-                        Domestic Shipping Policy
-                        Shipment processing time
-                        All orders are processed within 2-3 business days. Orders are not shipped or delivered on
-                        weekends or holidays.
-                        If we are experiencing a high volume of orders, shipments may be delayed by a few days. Please
-                        allow additional days in transit for delivery. If there will be a significant delay in shipment of your
-                        order, we will contact you via email or telephone.
-                        Update this section if your processing time exceeds 2-3 business days.
-                        Shipping rates & delivery estimates
-                        Shipping charges for your order will be calculated and displayed at checkout.
-                        Shipment method Estimated delivery time Shipment cost
-                        FedEx Standard 3-5 business days Free
-                        FedEx Two Days 2 business days $12.95
-                        FedEx Overnight * 1-2 business days $19.95
-                        * Overnight delivery is only available for orders with delivery addresses within the continental United
-                        States.
-                        Delivery delays can occasionally occur.
-                        Update this section based on carriers you support.
-                        Shipment to P.O. boxes or APO/FPO addresses
-                        My Website (change this) ships to addresses within the U.S., U.S. Territories, and APO/FPO/DPO
-                        addresses.
-                        Update this section if you do not ship to P.O. boxes or APO/FPO addresses.
-                        Shipment confirmation & Order tracking
-                        You will receive a Shipment Confirmation email once your order has shipped containing your
-                        tracking number(s). The tracking number will be active within 24 hours.
-                        Customs, Duties and Taxes
-                        My Website (change this) is not responsible for any customs and taxes applied to your order. All
-                        fees imposed during or after shipping are the responsibility of the customer (tariffs, taxes, etc.).
-                        Damages
-                        My Website (change this) is not liable for any products damaged or lost during shipping. If you
-                        received your order damaged, please contact the shipment carrier to file a claim.
-                        Please save all packaging materials and damaged goods before filing a claim.
-                        International Shipping Policy
-                        We currently do not ship outside the U.S.
-                        Update this section if ship to countries outside your home country.
-                        Returns Policy
-                        Our Return & Refund Policy provides detailed information about options and procedures for
-                        returning your order.
+                    <div class="col-md-6">
+                        <div class="header-slider normal-slider">
+                            <div class="header-slider-item">
+                                <img src="img/slider-1.jpg" alt="Slider Image" />
+                                <div class="header-slider-caption">
+                                    <p><?php echo $row['name'];?></p>
+                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                </div>
+                            </div>
+                            <div class="header-slider-item"
+                                <?php $row = mysqli_fetch_assoc($resultSet);
+                                        if($row['id']=='2')
+                                        {
+                                             $val2 = $row['name'];
+                                        }?>>
+                                <img src="img/slider-2.jpg" alt="Slider Image" />
+                                <div class="header-slider-caption">
+                                    <p><?php echo $val2;
+                                            $_SESSION['val2']= $val2; ?></p>
+                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                </div>
+                            </div>
+                            <div class="header-slider-item">
+                                <img src="img/slider-3.jpg" alt="Slider Image" />
+                                <div class="header-slider-caption"
+                                    <?php $row = mysqli_fetch_assoc($resultSet);
+                                        if($row['id']=='3')
+                                        {
+                                             $val3 = $row['name'];
+                                        }?>>
+                                    <p><?php echo $val3;
+                                            $_SESSION['val3']= $val3;  ?></p>
+                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="header-img">
+                            <div class="img-item">
+                                <img src="img/category-1.jpg" />
+                                <a class="img-text" href=""
+                                    <?php $row = mysqli_fetch_assoc($resultSet);
+                                        if($row['id']=='4')
+                                        {
+                                             $val4 = $row['name'];
+                                        }
+                                        ?>>
+                                    <p><?php echo $val4;
+                                            $_SESSION['val4']= $val4;  ?></p>
+                                </a>
+                            </div>
+                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                            <div class="img-item">
+                                <img src="img/category-2.jpg" />
+                                <a class="img-text" href="">
+                                    <p><?php echo $row1['name'];
+                                            $_SESSION['val']=$row1['name']; ?></p>
+                                </a>
+                            </div>
 
-                    </p>
-                   </div>
+                        </div>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Main Slider End -->      
+        
         <!-- Brand Start -->
         
         <h2 class = "Our-Brands">Our Brands</h2>
@@ -224,7 +261,7 @@
                             <i class="fab fa-cc-mastercard"></i>
                             <h2>Secure Payment</h2>
                              <p>
-                                Your all payments are secured with us.
+                            	Your all payments are secured with us.
                             </p>
                         </div>
                     </div>
@@ -233,7 +270,7 @@
                             <i class="fa fa-truck"></i>
                             <h2>Worldwide Delivery</h2>
                             <p>
-                                We deliver to more than twenty countries Worldwide.
+                            	We deliver to more than twenty countries Worldwide.
                             </p>
                         </div>
                     </div>
@@ -242,7 +279,7 @@
                             <i class="fa fa-sync-alt"></i>
                             <h2>90 Days Return</h2>
                              <p>
-                                We accept your products if you return to us within 90 days.
+                            	We accept your products if you return to us within 90 days.
                             </p>
                         </div>
                     </div>
@@ -251,7 +288,7 @@
                             <i class="fa fa-comments"></i>
                             <h2>24/7 Support</h2>
                              <p>
-                                We provide 24/7 services and you can get benifits anytime.
+                            	We provide 24/7 services and you can get benifits anytime.
                             </p>
                         </div>
                     </div>
@@ -261,14 +298,140 @@
         <!-- Feature End-->      
         
         <!-- Category Start-->
-        
+        <div class="category">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="category-item ch-400">
+                            <img src="img/category-3.jpg" />
+                            <a class="category-name" href=""
+                                <?php $row = mysqli_fetch_assoc($resultSet);
+                                        if($row['id']=='5')
+                                        {
+                                             $val5 = $row['name'];
+                                        }
+                                        ?>>
+                                <p><?php echo $val5;
+                                            $_SESSION['val5']= $val5;  ?></p>
+                            </a>
+
+                        </div>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="category-item ch-250">
+                            <img src="img/category-4.jpg" />
+                            <a class="category-name" href=""
+                                <?php 
+                                    $sql2 = "select * from fashion";
+
+                                    $resultSet2  = mysqli_query($connection, $sql2);
+                                    $row2 = mysqli_fetch_assoc($resultSet2);
+                                        if($row2['id']=='1')
+                                        {
+                                             $val6 = $row2['name'];
+                                        }
+                                        ?>>
+                                <p><?php echo $val6;
+                                            $_SESSION['val6']= $val6;  ?></p>
+                            </a>
+                        </div>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                        <div class="category-item ch-150">
+                            <img src="img/category-5.jpg" />
+                            <a class="category-name" href=""
+                                <?php
+                                    $sql3 = "select * from gadgets";
+
+                                    $resultSet3  = mysqli_query($connection, $sql3);
+                                    $row3 = mysqli_fetch_assoc($resultSet3);
+                                        if($row3['id']=='1')
+                                        {
+                                             $val8 = $row3['name'];
+                                        }
+                                        ?>>
+                                <p><?php echo $val8;
+                                            $_SESSION['val8']= $val8;  ?></p>
+                            </a>
+                        </div>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="category-item ch-150">
+                            <img src="img/category-6.jpg" />
+                            <a class="category-name" href=""
+                                <?php $row2 = mysqli_fetch_assoc($resultSet2);
+                                        if($row2['id']=='2')
+                                        {
+                                             $val7 = $row2['name'];
+                                        }
+                                        ?>>
+                                <p><?php echo $val7;
+                                            $_SESSION['val7']= $val7;  ?></p>
+                            </a>
+                        </div>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                        <div class="category-item ch-250">
+                            <img src="img/category-7.jpg" />
+                            <a class="category-name" href=""
+                                 <?php $row3 = mysqli_fetch_assoc($resultSet3);
+                                        if($row3['id']=='2')
+                                        {
+                                             $val11 = $row3['name'];
+                                        }
+                                        ?>>
+                                <p><?php echo $val11;
+                                            $_SESSION['val11']= $val11;  ?></p>
+                            </a>
+                        </div>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="category-item ch-400">
+                            <img src="img/category-8.jpg" />
+                            <a class="category-name" href=""
+                                <?php $row = mysqli_fetch_assoc($resultSet);
+                                        if($row['id']=='6')
+                                        {
+                                             $val6 = $row['name'];
+                                        }
+                                        ?>>
+                                <p><?php echo $val6;
+                                            $_SESSION['val6']= $val6;  ?></p>
+                            </a>
+                        </div>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Category End-->       
         
         <!-- Call to Action Start -->
+        <div class="call-to-action">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h1>Call us for any Queries</h1>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="tel:0123456789">+923068502002</a>
+                        <a href="tel:0123456789">+923016785982</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Call to Action End -->       
         
+        <!-- Featured Product Start -->
         <!-- Featured Product End -->       
         
-        <!-- Newsletter Start -->
+        
+        <!-- Recent Product End -->
+        
+        <!-- Review Start -->
+        
+        <!-- Review End -->        
         
         <!-- Footer Start -->
         <div class="footer">

@@ -9,6 +9,7 @@ tr
   border: 1px solid black;
   border-radius: 5px;
 }
+
 th{
   background-color: navy;
   color : white;
@@ -25,6 +26,18 @@ td
   border: 1px solid black;
   margin-bottom: 50px;
 }
+
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #30a5ff;
+  border: 1px solid blue;
+  border-radius: 12px;
+  color: white;
+  font-size : 18px;
+  padding: 8px 15px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 p {
   color: #777; }
 .upload
@@ -35,17 +48,13 @@ p {
 }
 a, a:hover, a:focus {
   color: #30a5ff;
-  text-decoration: none; }
+  text-decoration: none; 
+}
   a:hover{
-    color : white;
-    font-size : 15px;
     text-decoration: none;
-    background-color: black;
     border-radius: 500px;
-    padding: 5px;
   }
   
-
 h1, h2, h3, h4, h5, h6 {
   color: #444444; }
 
@@ -737,7 +746,7 @@ a.label:hover, a.label:focus {
 
 .nav-tabs li a, .nav-tabs li a:hover, .nav-tabs li.active a, .nav-tabs li.active a:hover {
   border: 0;
-  padding: 15px 20px; }
+  padding: 15px 20px;}
 
 .nav-tabs li.active a {
   color: #30a5ff; }
